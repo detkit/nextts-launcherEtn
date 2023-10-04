@@ -1,13 +1,14 @@
 'use client';
 
 import { CountdownTimer } from '@/components/countdown';
+import Cursor from '@/components/cursor';
 import { FrameworkRotation } from '@/components/frameworkRotation';
 import { assets } from '@/utils/assets';
 import { frameworks, type Framework } from '@/utils/framework';
 import { cn } from '@/utils/tailwind-utils';
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const poppins = Poppins({
 	weight: '700',
@@ -19,6 +20,7 @@ export default function Home() {
 		frameworks[0]
 	);
 	const [backgroundShow, setBackgroundShow] = useState(false);
+	const btnRef = useRef<HTMLButtonElement>(null);
 
 	useEffect(() => {
 		let currentIndex = 0;
@@ -136,6 +138,7 @@ export default function Home() {
 					</p>
 					<div className='mb-8'>
 						<button
+							ref={btnRef}
 							className={cn(
 								'text-black px-6 py-3 rounded-md text-sm font-semibold transition-colors duration-200',
 								{
@@ -163,6 +166,7 @@ export default function Home() {
 					<CountdownTimer currentFramework={currentFramework} />
 				</div>
 			</div>
+			<Cursor btnRef={btnRef} />
 		</main>
 	);
 }
